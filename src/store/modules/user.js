@@ -63,6 +63,27 @@ const actions = {
     })
   },
 
+  // get Info User
+  getInfo({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      getInfo().then(response => {
+        const data = response
+        console.log(response)
+        if (!data) {
+          return reject('Verification failed, please Login again.')
+        }
+
+        const user = data
+
+        commit('SET_NAME', data.first_name)
+        commit('SET_AVATAR', data.perfil)
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
   // remove token
   resetToken({ commit }) {
     return new Promise(resolve => {

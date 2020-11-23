@@ -21,7 +21,7 @@ router.beforeEach(async(to, from, next) => {
   // determine whether the user has logged in
   const hasToken = getToken()
   console.log()
-
+if (hasToken) {
   RefreshToken({token: hasToken}).then(response => {
       if (to.path === '/login') {
       // if is logged in, redirect to the home page
@@ -35,7 +35,7 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           store.dispatch('user/getInfo')
-
+// TODO BUSCAR NOVAMENTE USUARIO E INFORMACOES
           next()
         } catch (error) {
           // remove token and go to login page to re-login
@@ -57,8 +57,18 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     }
   })
+  } else {
+    /* has no token*/
 
-  
+    if (whiteList.indexOf(to.path) !== -1) {
+      // in the free login whitelist, go directly
+      next()
+    } else {
+      // other pages that do not have permission to access are redirected to the login page.
+      next(`/login?redirect=${to.path}`)
+      NProgress.done()
+    }
+  }
 })
 
 router.afterEach(() => {
