@@ -63,12 +63,12 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
-    Message({
+    /* Message({
       message: 'Erro ao Logar, favor verificar usuario e senha.',
       type: 'error',
       duration: 5 * 1000
-    })
-     store.dispatch('user/resetToken')
+    }) */
+    store.dispatch('user/resetToken')
     return Promise.reject(error)
   }
 )
