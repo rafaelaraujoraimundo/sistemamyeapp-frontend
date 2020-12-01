@@ -36,3 +36,11 @@ export function ExcluirIndicador(data) {
     method: 'delete',
   })
 }
+
+export function Dashboard(data) {
+  return request({
+    url: `/api/dashboard/`,
+    method: 'post',
+    data
+  })
+}

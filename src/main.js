@@ -15,6 +15,13 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+
+import Echarts from 'vue-echarts';
+
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/line';
+Vue.component('chart', Echarts);
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -30,7 +37,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
-// 如果想要中文版 element-ui，按如下方式声明
+// 如果想覝中文版 element-ui，按如下方弝声明
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
