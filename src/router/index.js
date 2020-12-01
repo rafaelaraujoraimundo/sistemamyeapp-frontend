@@ -25,6 +25,24 @@ import Layout from "@/layout";
   }
  */
 
+function guardMyroute(to, from, next) {
+  var isAuthenticated = true;
+  //this is just an example. You will have to find a better or
+  // centralised way to handle you localstorage data handling
+  if (isAuthenticated) {
+    isAuthenticated = true;
+    console.log("Passou Pelo GuarMyRoute");
+  } else {
+    isAuthenticated = false;
+  }
+ 
+  if (isAuthenticated) {
+    next(); // allow to enter route
+  } else {
+    next("/login"); // go to '/login';
+  }
+}
+
 /**
  * constantRoutes
  * a base page that does not have permission requirements
@@ -51,6 +69,7 @@ export const constantRoutes = [
       {
         path: "dashboard",
         name: "Dashboard",
+        beforeEnter : guardMyroute,
         component: () => import("@/views/dashboard/index"),
         meta: { title: "Dashboard", icon: "dashboard" }
       }
@@ -60,6 +79,7 @@ export const constantRoutes = [
   {
     path: "/CadastroAV",
     component: Layout,
+    beforeEnter : guardMyroute,
     redirect: "/CadastroAV/indicadores",
     name: "Cadastro",
     meta: { title: "Cadastro", icon: "el-icon-s-help" },
@@ -67,31 +87,33 @@ export const constantRoutes = [
       {
         path: "Indicadores",
         name: "Indicadores",
+        beforeEnter : guardMyroute,
         component: () => import("@/views/indicadores/index"),
         meta: { title: "Indicadores", icon: "el-icon-s-marketing" },
         children: [
           {
             path: "",
-        name: "IndicadoresList",
-        component: () => import("@/views/indicadores/indicadoresList"),
-        meta: { title: "Lista de Indicadores", icon: "el-icon-s-marketing" },
+            name: "IndicadoresList",
+            beforeEnter : guardMyroute,
+            component: () => import("@/views/indicadores/indicadoresList"),
+            meta: { title: "Lista de Indicadores", icon: "el-icon-s-marketing" }
           },
           {
             path: "novo",
             name: "NovoIndicador",
+            beforeEnter : guardMyroute,
             component: () => import("@/views/indicadores/novo"),
             meta: { title: "Novo Indicador", icon: "el-icon-edit-outline" },
             hidden: true
           }
-         
         ]
       },
       {
         path: "tree",
         name: "Tree",
+        beforeEnter : guardMyroute,
         component: () => import("@/views/tree/index"),
-        meta: { title: "Tree", icon: "tree" },
-
+        meta: { title: "Tree", icon: "tree" }
       }
     ]
   },
@@ -103,6 +125,7 @@ export const constantRoutes = [
       {
         path: "index",
         name: "Form",
+        beforeEnter : guardMyroute,
         component: () => import("@/views/form/index"),
         meta: { title: "Form", icon: "form" }
       }
@@ -114,6 +137,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: "/nested/menu1",
     name: "Nested",
+    beforeEnter : guardMyroute,
     meta: {
       title: "Nested",
       icon: "nested"
@@ -123,6 +147,7 @@ export const constantRoutes = [
         path: "menu1",
         component: () => import("@/views/nested/menu1/index"), // Parent router-view
         name: "Menu1",
+        beforeEnter : guardMyroute,
         meta: { title: "Menu1" },
         children: [
           {

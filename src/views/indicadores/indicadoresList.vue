@@ -9,7 +9,7 @@
         >
       </el-col>
     </el-row>
-    <el-table :data="list" size="mini" stripe max-height="600">
+    <el-table :data="list" size="mini" stripe max-height="1024">
       <el-table-column
         fixed
         prop="periodo"
@@ -23,11 +23,11 @@
       ></el-table-column>
       <el-table-column prop="indicador.descricao" label="Indicador Painel" width="290"></el-table-column>
       <el-table-column prop="descricao" label="Indicador" width="290"></el-table-column>
-      <el-table-column prop="meta" label="Meta" width="100"> </el-table-column>
+      <el-table-column prop="meta" label="Meta" width="95"> </el-table-column>
       <el-table-column
         prop="resultado"
         label="Resultado"
-        width="100"
+        width="95"
       ></el-table-column>
 
       <el-table-column fixed="right" label="Operations" width="170">
@@ -38,7 +38,10 @@
             size="small"
             >Excluir</el-button
           >
-          <el-button type="primary" size="small">Editar</el-button>
+          <el-button 
+          type="primary" 
+          size="small"
+          @click="EditarRow(scope.row)">Editar</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -77,9 +80,9 @@ export default {
             type: "success",
             message: "Indicador deletado conforme solicitado!",
           });
-          this.$router.push("/CadastroAV/Indicadores/");
+          this.fetchData();
         });
-        // @todo Fazer a atualização da lista
+
       });
     },
   },

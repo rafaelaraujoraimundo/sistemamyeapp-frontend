@@ -124,7 +124,6 @@ export default {
   created() {
     IndicadorPrincipal().then((response)=>{
       this.indicadorPrin = response.results
-      console.log(this.indicadorPrin)
     });
   },
   methods: {

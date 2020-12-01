@@ -15,9 +15,8 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
     if (store.getters.token) {
-      // let each request carry token
-      // ['X-Token'] is a custom headers key
-      // please modify it according to the actual situation
+      // @todo Verificar se o Token é valido se nao for sair fora e mandar para tela de login
+
       
       config.headers['Authorization'] = 'JWT '+ getToken()
     } else {

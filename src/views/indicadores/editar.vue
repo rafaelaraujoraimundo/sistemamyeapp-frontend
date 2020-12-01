@@ -105,6 +105,7 @@ export default {
   data() {
     return {
       form: {
+        id: "",
         periodo: "",
         idindicador: '',
         modoindicador: "",
@@ -125,6 +126,7 @@ export default {
     IndicadorPrincipal().then((response)=>{
       this.indicadorPrin = response.results
       console.log(this.indicadorPrin)
+      this.form = 
     });
   },
   methods: {

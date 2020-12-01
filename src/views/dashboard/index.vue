@@ -33,11 +33,13 @@
         </div></el-col
       >
       <el-col :span="8"
-        ><div class="grid-content">
+        >
           <el-table
             size="mini"
             :row-style="tableRowsStyle"
             :data="notaDashboard"
+            :cell-style="{padding: '0', height: '9px'}"
+            :showHeader="false"
           >
             <el-table-column prop="nota" label="" width="35"> </el-table-column>
             <el-table-column label="" width="35"> >= </el-table-column>
@@ -45,11 +47,10 @@
             </el-table-column>
             <el-table-column label="" width="35"> <= </el-table-column>
             <el-table-column prop="fim" label="" width="57"> </el-table-column>
-          </el-table></div
-      ></el-col>
+          </el-table></el-col>
       <el-col :span="3"
-        ><div class="grid-content">
-          <h1>{{ notaFilialDashboard[0].nota }}</h1>
+        ><div class="grid-content nota" :style="{ background: this.corNota }">
+          {{ nota  }}
         </div></el-col
       >
     </el-row>
@@ -60,6 +61,8 @@
             size="mini"
             :data="PainelGeralDashboard"
             @row-click="clicarnaCelula"
+            :row-style="tableRowsStyle2"
+            
           >
             <!--<el-table-column prop="indicadorPrincipal.id" label="ID" width="40"> </el-table-column>-->
             <el-table-column
@@ -86,23 +89,24 @@
             </el-table-column>
           </el-table>
                 <el-col :span="24"
-        ><div class="grid-content">
+        ><div>
           <el-table
             size="mini"
             :data="DetalheIndicadorFiltrado"
+            :row-style="tableRowsStyle2"
           >
-            <el-table-column prop="descricao" label="Indicador" width="300">
+            <el-table-column class-name="teste" prop="descricao" label="Indicador" width="320">
             </el-table-column>
-            <el-table-column prop="meta" label="Meta" width="95">
+            <el-table-column prop="meta" label="Meta" width="90">
             </el-table-column>
-            <el-table-column prop="resultado" label="Resultado" width="95>
+            <el-table-column prop="resultado" label="Resultado" width="90">
             </el-table-column>
           </el-table></div
       ></el-col>
         </div>
       </el-col>
       <el-col :span="12"
-        ><div id="grafico"><chart :options="chartOptionsBar"></chart></div
+        ><div id="grafico" style="{width: 255px !important; height: 100px !important}"><chart :options="chartOptionsBar"></chart></div
       ></el-col>
     </el-row>
     <el-row :gutter="20">
@@ -119,6 +123,8 @@ export default {
   name: "Dashboard",
   data() {
     return {
+      nota: '',
+      corNota: '',
       eixoX: [],
       eixoY: [],
       eixoY2: [],
@@ -153,7 +159,7 @@ export default {
           text: "Teste"
         },
         xAxis: {
-          data: ["Q1", "Q2", "Q3", "Q4"],
+          data: [],
         },
         yAxis: {
           type: "value",
@@ -161,14 +167,14 @@ export default {
         series: [
           {
             type: "line",
-            data: [63, 75, 24, 92],
+            data: [],
             label: {
               show: true
             }
           },
           {
             type: "bar",
-            data: [23, 43, 12, 1],
+            data: [],
             label: {
               show: true
             }
@@ -180,7 +186,10 @@ export default {
   },
   methods: {
     tableRowsStyle({ row, column, rowIndex, columnIndex }) {
-      return { "background-color": row.cor, color: "#fff" };
+      return { "background": row.cor, color: "#fff", "font-size": "12px", "width": "40px" };
+    },
+    tableRowsStyle2({ row, column, rowIndex, columnIndex }) {
+      return {"font-size": "12px" };
     },
     VerificaData() {
       let data = new Date();
@@ -202,6 +211,13 @@ export default {
       this.form.periodo = this.filtroSelect;
       Dashboard(this.form).then((response) => {
         this.notaFilialDashboard = response.results.notaFilial;
+        this.nota = this.notaFilialDashboard[0].nota;
+         this.corNota = this.notaDashboard.filter(
+          (nota) => {
+            return this.nota == nota.nota
+          })
+        this.corNota = this.corNota[0].cor
+        console.log(this.corNota)
         this.PainelGeralDashboard = response.results.painelGeral;
         this.DetalheIndicadorDashboard = response.results.detalheIndicador;
         this.filtros = response.results.filtros;
@@ -213,7 +229,6 @@ export default {
     },
     clicarnaCelula(row) {
       this.filtroPrinc = row.indicadorPrincipal.id;
-      console.log(this.filtroPrinc);
       this.DetalheIndicadorFiltrado = this.DetalheIndicadorDashboard.filter(
         (indicador) => {
           return this.filtroPrinc == indicador.indicador.id;
@@ -235,8 +250,6 @@ export default {
       this.eixoX = X
       this.eixoY = Y
       this.eixoY2 = Y2
-      console.log(this.eixoX)
-      console.log(this.eixoY)
       this.chartOptionsBar = {
         
         xAxis: {
@@ -274,13 +287,21 @@ export default {
 <style lang="scss" scoped>
 .dashboard {
   &-container {
-    margin: 30px;
+    margin: 13px;
   }
   &-text {
     font-size: 30px;
     line-height: 46px;
   }
 }
+
+.nota {
+  font-size: 110px !important;
+  text-align: center !important;
+  padding: 0 0;
+  color: white;
+}
+
 .el-row {
   margin-bottom: 20px;
   &:last-child {
@@ -288,30 +309,16 @@ export default {
   }
 }
 
-teste {
-  margin-bottom: 20px;
-  padding: 10px 0;
-  border-radius: 4px;
-}
-
 .el-col {
   border-radius: 4px;
 }
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.bg-purple {
-  background: #d3dce6;
-}
-.bg-purple-light {
-  background: #e5e9f2;
-}
+
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
 }
 .row-bg {
   padding: 10px 0;
-  background-color: #f9fafc;
+
 }
 </style>
