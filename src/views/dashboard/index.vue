@@ -91,11 +91,11 @@
             size="mini"
             :data="DetalheIndicadorFiltrado"
           >
-            <el-table-column prop="descricao" label="Indicador" width="340">
+            <el-table-column prop="descricao" label="Indicador" width="300">
             </el-table-column>
-            <el-table-column prop="meta" label="Meta" width="100">
+            <el-table-column prop="meta" label="Meta" width="95">
             </el-table-column>
-            <el-table-column prop="resultado" label="Resultado" width="100">
+            <el-table-column prop="resultado" label="Resultado" width="95>
             </el-table-column>
           </el-table></div
       ></el-col>
