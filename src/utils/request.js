@@ -15,7 +15,7 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
     if (store.getters.token) {
-      // @todo Verificar se o Token é valido se nao for sair fora e mandar para tela de login
+      // @todo Verificar se o Token ï¿½ valido se nao for sair fora e mandar para tela de login
 
       
       config.headers['Authorization'] = 'JWT '+ getToken()

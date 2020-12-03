@@ -4,33 +4,21 @@
       <el-col>
         <el-button
           type="primary"
-          @click="$router.push('/CadastroAV/Indicadores/Novo')"
-          >Novo Indicador</el-button
+          @click="$router.push('/CadastroAV/IndicadorPrincipal/Novo')"
+          >Novo</el-button
         >
       </el-col>
     </el-row>
     <el-table :data="list" size="mini" stripe max-height="1024">
       <el-table-column
-        fixed
-        prop="periodo"
-        label="Período"
-        width="65"
+        prop="codigo"
+        label="Codigo"
+        width="70"
       ></el-table-column>
-      <el-table-column
-        prop="indicador.id"
-        label="ID"
-        width="50"
-      ></el-table-column>
-      <el-table-column prop="indicador.descricao" label="Indicador Painel" width="290"></el-table-column>
-      <el-table-column prop="descricao" label="Indicador" width="290"></el-table-column>
-      <el-table-column prop="meta" label="Meta" width="95"> </el-table-column>
-      <el-table-column
-        prop="resultado"
-        label="Resultado"
-        width="95"
-      ></el-table-column>
-
-      <el-table-column fixed="right" label="Operations" width="170">
+      <el-table-column prop="descricao" label="Indicador Principal" width="290"></el-table-column>
+      <el-table-column prop="modo" label="Modo de Cálculo" width="290"></el-table-column>
+      <el-table-column prop="peso" label="Peso" width="95"> </el-table-column>
+        <el-table-column label="Operations" width="170">
         <template slot-scope="scope">
           <el-button
             @click="open(scope.row.id, list)"
@@ -49,7 +37,7 @@
 </template>
 
 <script>
-import { detalheindicador, ExcluirIndicador } from "@/api/dashboard";
+import { indicadorPrincipalList, ExcluirIndicadorPrincipal } from "@/api/indicadorPrincipal";
 
 export default {
   data() {
@@ -64,18 +52,18 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true;
-      detalheindicador().then((response) => {
+      indicadorPrincipalList().then((response) => {
         this.list = response.results;
         this.listLoading = false;
       });
     },
     open(id, list) {
-      this.$confirm("Tem certeza que deseja excluir?", "Warning", {
+      this.$confirm("Tem certeza que deseja excluir?", "Confirmação de Exclusão", {
         confirmButtonText: "OK",
         cancelButtonText: "Cancel",
         type: "warning",
       }).then(() => {
-        ExcluirIndicador(id).then(() => {
+        ExcluirIndicadorPrincipal(id).then(() => {
           this.$message({
             type: "success",
             message: "Indicador deletado conforme solicitado!",
@@ -86,7 +74,7 @@ export default {
       });
     },
     editarRow(id) {
-      this.$router.push({ name: 'EditarIndicador' ,
+      this.$router.push({ name: 'EditarIndicadorPrincipal' ,
                 query: {id: id} ,
                 })
     }

@@ -60,9 +60,15 @@ export const constantRoutes = [
     component: () => import("@/views/404"),
     hidden: true
   },
-
   {
     path: "/",
+    component: Layout,
+    redirect: "/dashboard",
+    modulo: true,
+    meta: { title: "Avaliação De Unidades", icon: "dashboard",  }
+  },
+  {
+    path: "",
     component: Layout,
     redirect: "/dashboard",
     children: [
@@ -85,6 +91,38 @@ export const constantRoutes = [
     meta: { title: "Cadastro", icon: "el-icon-s-help" },
     children: [
       {
+        path: "IndicadorPrincipal",
+        name: "Indicadores Principais",
+        beforeEnter : guardMyroute,
+        component: () => import("@/views/indicadorPrincipal/index"),
+        meta: { title: "Indicadores Matriz", icon: "el-icon-s-data" },
+        children: [
+          {
+            path: "",
+            name: "IndicadoresPrincipalList",
+            beforeEnter : guardMyroute,
+            component: () => import("@/views/indicadorPrincipal/indicadoresList"),
+            meta: { title: "Indicadores Matriz", icon: "el-icon-s-data" }
+          },
+          {
+            path: "novo",
+            name: "NovoIndicadorPrincipal",
+            beforeEnter : guardMyroute,
+            component: () => import("@/views/indicadorPrincipal/novo"),
+            meta: { title: "Novo Indicador Matriz", icon: "el-icon-edit-outline" },
+            hidden: true
+          },
+          {
+            path: "editar",
+            name: "EditarIndicadorPrincipal",
+            beforeEnter : guardMyroute,
+            component: () => import("@/views/indicadorPrincipal/editar"),
+            meta: { title: "Editar Indicador", icon: "el-icon-edit-outline" },
+            hidden: true
+          }
+        ]
+      },
+      {
         path: "Indicadores",
         name: "Indicadores",
         beforeEnter : guardMyroute,
@@ -96,7 +134,7 @@ export const constantRoutes = [
             name: "IndicadoresList",
             beforeEnter : guardMyroute,
             component: () => import("@/views/indicadores/indicadoresList"),
-            meta: { title: "Lista de Indicadores", icon: "el-icon-s-marketing" }
+            meta: { title: "Indicadores", icon: "el-icon-s-marketing" }
           },
           {
             path: "novo",
@@ -115,17 +153,29 @@ export const constantRoutes = [
             hidden: true
           }
         ]
-      },
-      {
-        path: "tree",
-        name: "Tree",
-        beforeEnter : guardMyroute,
-        component: () => import("@/views/tree/index"),
-        meta: { title: "Tree", icon: "tree" }
       }
     ]
   },
-
+    {
+    path: "/",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        name: "processamentoMensal",
+        beforeEnter : guardMyroute,
+        component: () => import("@/views/form/index"),
+        meta: { title: "Processamento Mensal", icon: "el-icon-data-analysis" }
+      }
+    ]
+  },
+  {
+    path: "/",
+    component: Layout,
+    redirect: "/dashboard",
+    modulo: true,
+    meta: { title: "Administração", icon: "dashboard",  }
+  },
   {
     path: "/form",
     component: Layout,
