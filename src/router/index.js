@@ -105,6 +105,14 @@ export const constantRoutes = [
             component: () => import("@/views/indicadores/novo"),
             meta: { title: "Novo Indicador", icon: "el-icon-edit-outline" },
             hidden: true
+          },
+          {
+            path: "editar",
+            name: "EditarIndicador",
+            beforeEnter : guardMyroute,
+            component: () => import("@/views/indicadores/editar"),
+            meta: { title: "Editar Indicador", icon: "el-icon-edit-outline" },
+            hidden: true
           }
         ]
       },

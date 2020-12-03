@@ -38,6 +38,10 @@
             size="small"
             >Excluir</el-button
           >
+          <router-link tag="button" primary
+            :to="{ name: 'EditarIndicador' ,
+                query: {id: scope.row.id} ,
+                }"> Editar </router-link>
           <el-button 
           type="primary" 
           size="small"

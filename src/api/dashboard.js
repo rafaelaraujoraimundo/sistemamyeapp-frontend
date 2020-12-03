@@ -14,6 +14,20 @@ export function detalheindicador() {
   })
 }
 
+export function detalheindicadorid(id) {
+  return request({
+    url: `/api/v1/detalheindicador/${id}/`,
+    method: 'get',
+  })
+}
+
+export function EditarIndicador(data) {
+  return request({
+    url: `/api/v1/detalheindicador/${data.id}/`,
+    method: 'put',
+    data
+  })
+}
 
 export function NovoIndicador(data) {
   return request({

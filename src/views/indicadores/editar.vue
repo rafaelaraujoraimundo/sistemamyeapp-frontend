@@ -9,13 +9,20 @@
     >
       <el-row :gutter="20">
         <el-col :span="6">
+          <el-form-item label="ID"
+          >
+            <el-input disabled v-model="form.id" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
           <el-form-item label="Periodo">
             <el-input v-model="form.periodo" placeholder="AAAAMM" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="24">
+        <el-col :span="12"> </el-col>
+        <el-col :span="12">
           <el-form-item label="Descrição">
             <el-input v-model="form.descricao" />
           </el-form-item>
@@ -91,7 +98,7 @@
         </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
+        <el-button type="primary" @click="onSubmit">Editar</el-button>
         <el-button @click="onCancel">Cancel</el-button>
       </el-form-item>
     </el-form>
@@ -99,7 +106,7 @@
 </template>
 
 <script>
-import { NovoIndicador, IndicadorPrincipal } from "../../api/dashboard";
+import { NovoIndicador, IndicadorPrincipal, detalheindicadorid, EditarIndicador } from "../../api/dashboard";
 
 export default {
   data() {
@@ -107,15 +114,14 @@ export default {
       form: {
         id: "",
         periodo: "",
-        idindicador: '',
+        idindicador: "",
         modoindicador: "",
         incluso: false,
         inverso: false,
         descricao: "",
         meta: 0,
-        resultado: 0
+        resultado: 0,
         // ITENS PADRÃ•ES DO USUARIO
-
         //
         // */
       },
@@ -123,25 +129,28 @@ export default {
     };
   },
   created() {
-    IndicadorPrincipal().then((response)=>{
-      this.indicadorPrin = response.results
-      console.log(this.indicadorPrin)
-      this.form = 
+    IndicadorPrincipal().then((response) => {
+      this.indicadorPrin = response.results;
+      
     });
+    detalheindicadorid(this.$route.query.id).then((response) => {
+      this.form = response
+    })
   },
   methods: {
     onSubmit() {
       this.form.idfilial = this.$store.getters.user.filial.id;
       this.form.idempresa = this.$store.getters.user.empresa.id;
       this.form.criadopor = this.$store.getters.user.id;
+      delete this.form.indicador
       // Colocar o indicador pq precisa
-      NovoIndicador(this.form).then((response) => {
-        this.$message("Indicador Criado conforme solicitado!");
-      this.$router.push('/CadastroAV/Indicadores/')
+      EditarIndicador(this.form).then((response) => {
+        this.$message("Indicador Alterado conforme solicitado!");
+        this.$router.push("/CadastroAV/Indicadores/");
       });
     },
     onCancel() {
-      this.$router.push('/CadastroAV/Indicadores/')
+      this.$router.push("/CadastroAV/Indicadores/");
     },
   },
 };
