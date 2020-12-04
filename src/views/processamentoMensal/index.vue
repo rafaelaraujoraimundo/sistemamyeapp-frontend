@@ -8,6 +8,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">Processar</el-button>
+        <el-button type="danger" @click="deletarProcessamentoMensal">Excluir</el-button>
         <el-button @click="onCancel">Cancel</el-button>
       </el-form-item>
     </el-form>
@@ -17,6 +18,7 @@
 <script>
 import {
   processamentoMensal,
+  exclusaoProcessamentoMensal,
 } from "../../api/processamento";
 
 export default {
@@ -29,6 +31,30 @@ export default {
     }
   },
   methods: {
+      deletarProcessamentoMensal() {
+      this.form.periodo = this.VerificaData(this.form.fechamento)
+      delete this.form.fechamento
+      this.$confirm("Tem certeza que deseja excluir o processamento ?", "Confirmação de Exclusão", {
+        confirmButtonText: "OK",
+        cancelButtonText: "Cancel",
+        type: "warning",
+      }).then(() => {
+        exclusaoProcessamentoMensal(this.form).then(() => {
+        this.$message({
+        message: 'Processamento excluido com sucesso!',
+        type: 'success'
+      })
+      }).catch((error) => {
+        console.log(error)
+        this.$message({
+        message: "Erro ao processar fechamento, favor verificar se existe dados nos indicadores com o Periodo Selecionado",
+        type: 'warning'
+      })
+      })
+
+
+      });
+    },
     onSubmit() {
       this.form.periodo = this.VerificaData(this.form.fechamento)
       console.log(this.form.periodo)

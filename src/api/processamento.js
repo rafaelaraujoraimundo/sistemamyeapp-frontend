@@ -7,3 +7,11 @@ export function processamentoMensal(data) {
     data
   })
 }
+
+export function exclusaoProcessamentoMensal(data) {
+  return request({
+    url: '/api/calcular/',
+    method: 'delete',
+    data
+  })
+}
