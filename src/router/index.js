@@ -164,7 +164,7 @@ export const constantRoutes = [
         path: "index",
         name: "processamentoMensal",
         beforeEnter : guardMyroute,
-        component: () => import("@/views/form/index"),
+        component: () => import("@/views/processamentoMensal/index"),
         meta: { title: "Processamento Mensal", icon: "el-icon-data-analysis" }
       }
     ]
