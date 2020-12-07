@@ -2,6 +2,7 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import router from '../router'
 
 // create an axios instance
 const service = axios.create({
@@ -67,6 +68,10 @@ service.interceptors.response.use(
       type: 'error',
       duration: 5 * 1000
     }) */
+    if (error.response.status == '401' || error.response.data.global[0] == 'Signature has expired.'){
+      store.dispatch('user/resetToken')
+      router.push({ path: "/login"  })
+    }
 
     return Promise.reject(error)
   }

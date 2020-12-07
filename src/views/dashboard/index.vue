@@ -5,7 +5,7 @@
         ><div>
           <el-image
             style="width: 100px; height: 100px"
-            :src="logoEmpresa"
+            :src="user.empresa.logoempresa"
             fit="contain"
           ></el-image></div
       ></el-col>
@@ -118,11 +118,13 @@
 <script>
 import { notas, Dashboard } from "@/api/dashboard";
 import { mapGetters } from "vuex";
+import store from '../../store'
 
 export default {
   name: "Dashboard",
   data() {
     return {
+
       nota: '',
       corNota: '',
       eixoX: [],
@@ -153,6 +155,7 @@ export default {
     notas().then((response) => {
       this.notaDashboard = response.results;
     });
+     store.dispatch('user/getInfo')
     
     this.chartOptionsBar = {
         title: {

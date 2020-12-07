@@ -50,6 +50,7 @@ function guardMyroute(to, from, next) {
  */
 export const constantRoutes = [
   {
+    
     path: "/login",
     component: () => import("@/views/login/index"),
     hidden: true
