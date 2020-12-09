@@ -35,7 +35,7 @@ function guardMyroute(to, from, next) {
   } else {
     isAuthenticated = false;
   }
- 
+
   if (isAuthenticated) {
     next(); // allow to enter route
   } else {
@@ -50,7 +50,6 @@ function guardMyroute(to, from, next) {
  */
 export const constantRoutes = [
   {
-    
     path: "/login",
     component: () => import("@/views/login/index"),
     hidden: true
@@ -66,7 +65,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: "/dashboard",
     modulo: true,
-    meta: { title: "Avaliação De Unidades", icon: "dashboard",  }
+    meta: { title: "Avaliação De Unidades", icon: "dashboard" }
   },
   {
     path: "",
@@ -76,7 +75,7 @@ export const constantRoutes = [
       {
         path: "dashboard",
         name: "Dashboard",
-        beforeEnter : guardMyroute,
+        beforeEnter: guardMyroute,
         component: () => import("@/views/dashboard/index"),
         meta: { title: "Dashboard", icon: "dashboard" }
       }
@@ -86,7 +85,7 @@ export const constantRoutes = [
   {
     path: "/CadastroAV",
     component: Layout,
-    beforeEnter : guardMyroute,
+    beforeEnter: guardMyroute,
     redirect: "/CadastroAV/indicadores",
     name: "Cadastro",
     meta: { title: "Cadastro", icon: "el-icon-s-help" },
@@ -94,29 +93,33 @@ export const constantRoutes = [
       {
         path: "IndicadorPrincipal",
         name: "Indicadores Principais",
-        beforeEnter : guardMyroute,
+        beforeEnter: guardMyroute,
         component: () => import("@/views/indicadorPrincipal/index"),
         meta: { title: "Indicadores Matriz", icon: "el-icon-s-data" },
         children: [
           {
             path: "",
             name: "IndicadoresPrincipalList",
-            beforeEnter : guardMyroute,
-            component: () => import("@/views/indicadorPrincipal/indicadoresList"),
+            beforeEnter: guardMyroute,
+            component: () =>
+              import("@/views/indicadorPrincipal/indicadoresList"),
             meta: { title: "Indicadores Matriz", icon: "el-icon-s-data" }
           },
           {
             path: "novo",
             name: "NovoIndicadorPrincipal",
-            beforeEnter : guardMyroute,
+            beforeEnter: guardMyroute,
             component: () => import("@/views/indicadorPrincipal/novo"),
-            meta: { title: "Novo Indicador Matriz", icon: "el-icon-edit-outline" },
+            meta: {
+              title: "Novo Indicador Matriz",
+              icon: "el-icon-edit-outline"
+            },
             hidden: true
           },
           {
             path: "editar",
             name: "EditarIndicadorPrincipal",
-            beforeEnter : guardMyroute,
+            beforeEnter: guardMyroute,
             component: () => import("@/views/indicadorPrincipal/editar"),
             meta: { title: "Editar Indicador", icon: "el-icon-edit-outline" },
             hidden: true
@@ -126,21 +129,21 @@ export const constantRoutes = [
       {
         path: "Indicadores",
         name: "Indicadores",
-        beforeEnter : guardMyroute,
+        beforeEnter: guardMyroute,
         component: () => import("@/views/indicadores/index"),
         meta: { title: "Indicadores", icon: "el-icon-s-marketing" },
         children: [
           {
             path: "",
             name: "IndicadoresList",
-            beforeEnter : guardMyroute,
+            beforeEnter: guardMyroute,
             component: () => import("@/views/indicadores/indicadoresList"),
             meta: { title: "Indicadores", icon: "el-icon-s-marketing" }
           },
           {
             path: "novo",
             name: "NovoIndicador",
-            beforeEnter : guardMyroute,
+            beforeEnter: guardMyroute,
             component: () => import("@/views/indicadores/novo"),
             meta: { title: "Novo Indicador", icon: "el-icon-edit-outline" },
             hidden: true
@@ -148,7 +151,7 @@ export const constantRoutes = [
           {
             path: "editar",
             name: "EditarIndicador",
-            beforeEnter : guardMyroute,
+            beforeEnter: guardMyroute,
             component: () => import("@/views/indicadores/editar"),
             meta: { title: "Editar Indicador", icon: "el-icon-edit-outline" },
             hidden: true
@@ -157,14 +160,14 @@ export const constantRoutes = [
       }
     ]
   },
-    {
+  {
     path: "/",
     component: Layout,
     children: [
       {
-        path: "index",
+        path: "processamentoMensal",
         name: "processamentoMensal",
-        beforeEnter : guardMyroute,
+        beforeEnter: guardMyroute,
         component: () => import("@/views/processamentoMensal/index"),
         meta: { title: "Processamento Mensal", icon: "el-icon-data-analysis" }
       }
@@ -175,97 +178,77 @@ export const constantRoutes = [
     component: Layout,
     redirect: "/dashboard",
     modulo: true,
-    meta: { title: "Administração", icon: "dashboard",  }
+    meta: { title: "Administração", icon: "dashboard" }
   },
   {
-    path: "/form",
+    path: "/administracao",
+    name: "Empresas",
     component: Layout,
+    redirect: "/administracao/empresas",
+    beforeEnter: guardMyroute,
+    meta: { title: "Empresas", icon: "el-icon-s-marketing" },
     children: [
       {
-        path: "index",
-        name: "Form",
-        beforeEnter : guardMyroute,
-        component: () => import("@/views/form/index"),
-        meta: { title: "Form", icon: "form" }
-      }
-    ]
-  },
-
-  {
-    path: "/nested",
-    component: Layout,
-    redirect: "/nested/menu1",
-    name: "Nested",
-    beforeEnter : guardMyroute,
-    meta: {
-      title: "Nested",
-      icon: "nested"
-    },
-    children: [
-      {
-        path: "menu1",
-        component: () => import("@/views/nested/menu1/index"), // Parent router-view
-        name: "Menu1",
-        beforeEnter : guardMyroute,
-        meta: { title: "Menu1" },
-        children: [
-          {
-            path: "menu1-1",
-            component: () => import("@/views/nested/menu1/menu1-1"),
-            name: "Menu1-1",
-            meta: { title: "Menu1-1" }
-          },
-          {
-            path: "menu1-2",
-            component: () => import("@/views/nested/menu1/menu1-2"),
-            name: "Menu1-2",
-            meta: { title: "Menu1-2" },
-            children: [
-              {
-                path: "menu1-2-1",
-                component: () =>
-                  import("@/views/nested/menu1/menu1-2/menu1-2-1"),
-                name: "Menu1-2-1",
-                meta: { title: "Menu1-2-1" }
-              },
-              {
-                path: "menu1-2-2",
-                component: () =>
-                  import("@/views/nested/menu1/menu1-2/menu1-2-2"),
-                name: "Menu1-2-2",
-                meta: { title: "Menu1-2-2" }
-              }
-            ]
-          },
-          {
-            path: "menu1-3",
-            component: () => import("@/views/nested/menu1/menu1-3"),
-            name: "Menu1-3",
-            meta: { title: "Menu1-3" }
-          }
-        ]
+        path: "empresas",
+        name: "IndicadoresList",
+        beforeEnter: guardMyroute,
+        component: () => import("@/views/empresas/empresasList"),
+        meta: { title: "Empresas", icon: "el-icon-s-cooperation" }
       },
       {
-        path: "menu2",
-        component: () => import("@/views/nested/menu2/index"),
-        name: "Menu2",
-        meta: { title: "menu2" }
+        path: "/administracao/empresa/novo",
+        name: "novaempresa",
+        beforeEnter: guardMyroute,
+        component: () => import("@/views/empresas/novo"),
+        meta: { title: "Nova Empresa", icon: "el-icon-edit-outline" },
+        hidden: true
+      },
+      {
+        path: "editar",
+        name: "EditarEmpresa",
+        beforeEnter: guardMyroute,
+        component: () => import("@/views/empresas/editar"),
+        meta: { title: "Editar Indicador", icon: "el-icon-edit-outline" },
+        hidden: true
       }
     ]
   },
-
-  {
-    path: "external-link",
+    {
+    path: "/administracao",
+    name: "filiais",
     component: Layout,
+    redirect: "/administracao/filiais",
+    beforeEnter: guardMyroute,
+    meta: { title: "Filiais", icon: "el-icon-suitcase" },
     children: [
       {
-        path: "https://panjiachen.github.io/vue-element-admin-site/#/",
-        meta: { title: "External Link", icon: "link" }
+        path: "/administracao/filiais",
+        name: "filiaisList",
+        beforeEnter: guardMyroute,
+        component: () => import("@/views/filiais/filiaisList"),
+        meta: { title: "Filiais", icon: "el-icon-suitcase" }
+      },
+      {
+        path: "/administracao/filiais/novo",
+        name: "novafilial",
+        beforeEnter: guardMyroute,
+        component: () => import("@/views/filiais/novo"),
+        meta: { title: "Nova Filial", icon: "el-icon-edit-outline" },
+        hidden: true
+      },
+      {
+        path: "editar",
+        name: "EditarFilial",
+        beforeEnter: guardMyroute,
+        component: () => import("@/views/filiais/editar"),
+        meta: { title: "Editar Filiais", icon: "el-icon-edit-outline" },
+        hidden: true
       }
     ]
   },
 
-  // 404 page must be placed at the end !!!
+
+ // 404 page must be placed at the end !!!
   { path: "*", redirect: "/404", hidden: true }
 ];
 
