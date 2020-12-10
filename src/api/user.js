@@ -29,3 +29,19 @@ export function RefreshToken(data) {
     data
   })
 }
+
+
+export function usuarioList() {
+  return request({
+    url: '/api/v1/users/',
+    method: 'get',
+  })
+}
+
+export function usuarioNovo(data) {
+  return request({
+    url: '/api/v1/users/',
+    method: 'post',
+    data
+  })
+}

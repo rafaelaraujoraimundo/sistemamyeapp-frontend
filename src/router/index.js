@@ -213,7 +213,7 @@ export const constantRoutes = [
       }
     ]
   },
-    {
+  {
     path: "/administracao",
     name: "filiais",
     component: Layout,
@@ -246,9 +246,41 @@ export const constantRoutes = [
       }
     ]
   },
+    {
+    path: "/administracao",
+    name: "usuarios",
+    component: Layout,
+    redirect: "/administracao/usuarios",
+    beforeEnter: guardMyroute,
+    meta: { title: "Usuarios", icon: "el-icon-user" },
+    children: [
+      {
+        path: "/administracao/usuarios",
+        name: "usuariosList",
+        beforeEnter: guardMyroute,
+        component: () => import("@/views/usuarios/usuariosList"),
+        meta: { title: "Usuarios", icon: "el-icon-user" }
+      },
+      {
+        path: "/administracao/usuarios/novo",
+        name: "novousuario",
+        beforeEnter: guardMyroute,
+        component: () => import("@/views/usuarios/novo"),
+        meta: { title: "Novo Usuário", icon: "el-icon-user" },
+        hidden: true
+      },
+      {
+        path: "editar",
+        name: "EditarUsuario",
+        beforeEnter: guardMyroute,
+        component: () => import("@/views/usuarios/editar"),
+        meta: { title: "Editar Filiais", icon: "el-icon-user" },
+        hidden: true
+      }
+    ]
+  },
 
-
- // 404 page must be placed at the end !!!
+  // 404 page must be placed at the end !!!
   { path: "*", redirect: "/404", hidden: true }
 ];
 
