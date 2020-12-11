@@ -226,7 +226,7 @@ export const constantRoutes = [
         name: "filiaisList",
         beforeEnter: guardMyroute,
         component: () => import("@/views/filiais/filiaisList"),
-        meta: { title: "listas", icon: "el-icon-suitcase" }
+        meta: { title: "Filiais", icon: "el-icon-suitcase" }
       },
       {
         path: "/administracao/filiais/novo",
