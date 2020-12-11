@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+  <div>Editar</div>
     <el-form
       ref="form"
       :model="form"

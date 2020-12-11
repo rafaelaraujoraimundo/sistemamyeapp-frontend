@@ -98,7 +98,7 @@ export const constantRoutes = [
         meta: { title: "Indicadores Matriz", icon: "el-icon-s-data" },
         children: [
           {
-            path: "",
+            path: "Lista",
             name: "IndicadoresPrincipalList",
             beforeEnter: guardMyroute,
             component: () =>
@@ -181,15 +181,15 @@ export const constantRoutes = [
     meta: { title: "Administração", icon: "dashboard" }
   },
   {
-    path: "/administracao",
+    path: "/administracao/empresas",
     name: "Empresas",
     component: Layout,
-    redirect: "/administracao/empresas",
+    redirect: "/administracao/empresas/lista",
     beforeEnter: guardMyroute,
     meta: { title: "Empresas", icon: "el-icon-s-marketing" },
     children: [
       {
-        path: "empresas",
+        path: "/administracao/empresas/lista",
         name: "IndicadoresList",
         beforeEnter: guardMyroute,
         component: () => import("@/views/empresas/empresasList"),
@@ -214,19 +214,19 @@ export const constantRoutes = [
     ]
   },
   {
-    path: "/administracao",
+    path: "/administracao/filiais",
     name: "filiais",
     component: Layout,
-    redirect: "/administracao/filiais",
+    redirect: "/administracao/filiais/lista",
     beforeEnter: guardMyroute,
     meta: { title: "Filiais", icon: "el-icon-suitcase" },
     children: [
       {
-        path: "/administracao/filiais",
+        path: "/administracao/filiais/lista",
         name: "filiaisList",
         beforeEnter: guardMyroute,
         component: () => import("@/views/filiais/filiaisList"),
-        meta: { title: "Filiais", icon: "el-icon-suitcase" }
+        meta: { title: "listas", icon: "el-icon-suitcase" }
       },
       {
         path: "/administracao/filiais/novo",
@@ -247,7 +247,7 @@ export const constantRoutes = [
     ]
   },
     {
-    path: "/administracao",
+    path: "/administracao/usuarios",
     name: "usuarios",
     component: Layout,
     redirect: "/administracao/usuarios",
@@ -270,7 +270,7 @@ export const constantRoutes = [
         hidden: true
       },
       {
-        path: "editar",
+        path: "/administracao/usuarios/editar",
         name: "EditarUsuario",
         beforeEnter: guardMyroute,
         component: () => import("@/views/usuarios/editar"),

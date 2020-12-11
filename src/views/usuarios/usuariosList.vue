@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { usuarioList } from "@/api/user";
+import { usuarioList, usuarioExcluir } from "@/api/user";
 
 export default {
   data() {
@@ -95,19 +95,19 @@ export default {
         cancelButtonText: "Cancel",
         type: "warning",
       }).then(() => {
-        filialExcluir(id).then(() => {
+        usuarioExcluir(id).then(() => {
           this.$message({
             type: "success",
-            message: "Empresa excluída conforme solicitado!",
+            message: "Usuario excluído conforme solicitado!",
             
           });
           this.fetchData();
-          this.$router.push({ name: "filiaisList", query: { id: id } });
+          this.$router.push({ name: "usuariosList" });
         });
       });
     },
     editarRow(id) {
-      this.$router.push({ name: "EditarFilial", query: { id: id } });
+      this.$router.push({ name: "EditarUsuario", query: { id: id } });
     },
   },
 };

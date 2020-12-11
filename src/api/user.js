@@ -45,3 +45,10 @@ export function usuarioNovo(data) {
     data
   })
 }
+
+export function usuarioExcluir(id) {
+  return request({
+    url: `/api/v1/users/${id}/`,
+    method: 'delete',
+  })
+}
