@@ -62,18 +62,20 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    /* Message({
-      message: 'Erro ao Logar, favor verificar usuario e senha.',
+    console.log(error.response.data) // for debug
+    
+     
+     Message({
+      message: error.response.data,
       type: 'error',
       duration: 5 * 1000
-    }) */
-    if (error.response.status == '401' || error.response.data.global[0] == 'Signature has expired.'){
+    })
+      if (error.response.status == '401' || error.response.data.global[0] == 'Signature has expired.'){
       store.dispatch('user/resetToken')
       router.push({ path: "/login"  })
     }
 
-    return Promise.reject(error)
+    return Promise.reject(error.response)
   }
 )
 

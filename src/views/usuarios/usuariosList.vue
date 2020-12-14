@@ -8,7 +8,7 @@
       </el-col>
     </el-row>
     <el-table :data="list" size="mini" stripe max-height="1024">
-    <el-table-column
+      <el-table-column
         prop="email"
         label="Usuario"
         fixed
@@ -19,19 +19,11 @@
         label="Empresa"
         width="250"
       ></el-table-column>
-        <el-table-column
-        prop="filial.nomefilial"
-        label="Filial"
-        width="250"
-      >
+      <el-table-column prop="filial.nomefilial" label="Filial" width="250">
       </el-table-column>
-        <el-table-column
-        prop="first_name"
-        label="Nome"
-        width="100"
-      >
-            </el-table-column>
-        <el-table-column
+      <el-table-column prop="first_name" label="Nome" width="100">
+      </el-table-column>
+      <el-table-column
         prop="last_name"
         label="Sobrenome"
         width="150"
@@ -53,6 +45,8 @@
         </template>
       </el-table-column>
     </el-table>
+
+
   </div>
 </template>
 
@@ -74,7 +68,7 @@ export default {
       this.listLoading = true;
       usuarioList().then((response) => {
         this.list = response.results;
-        console.log(this.list)
+
         this.list.sort(function (a, b) {
           if (a.empresa.nomeempresa > b.empresa.nomeempresa) {
             return 1;
@@ -99,7 +93,6 @@ export default {
           this.$message({
             type: "success",
             message: "Usuario excluído conforme solicitado!",
-            
           });
           this.fetchData();
           this.$router.push({ name: "usuariosList" });

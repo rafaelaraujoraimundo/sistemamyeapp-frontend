@@ -72,7 +72,7 @@ export default {
     return {
       loginForm: {
         username: 'rafael.araujo2005@gmail.com',
-        password: '123456'
+        password: 'Password@123'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur',  }],

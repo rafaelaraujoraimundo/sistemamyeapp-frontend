@@ -274,7 +274,7 @@ export const constantRoutes = [
         name: "EditarUsuario",
         beforeEnter: guardMyroute,
         component: () => import("@/views/usuarios/editar"),
-        meta: { title: "Editar Filiais", icon: "el-icon-user" },
+        meta: { title: "Editar Usuarios", icon: "el-icon-user" },
         hidden: true
       }
     ]

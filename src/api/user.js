@@ -52,3 +52,19 @@ export function usuarioExcluir(id) {
     method: 'delete',
   })
 }
+
+export function detalheusuarioid(data) {
+  return request({
+    url: `/api/v1/users/${data}/`,
+    method: 'get',
+    data
+  })
+}
+
+export function alterarSenhaUsuario(data) {
+  return request({
+    url: '/auth/password/change/',
+    method: 'post',
+    data
+  })
+}
