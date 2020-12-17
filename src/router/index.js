@@ -50,6 +50,12 @@ function guardMyroute(to, from, next) {
  */
 export const constantRoutes = [
   {
+    path: "/alterarSenha/:uid/:token",
+    component: () => import("@/views/alterarSenha/index"),
+    hidden: true,
+    name: 'alterarSenha'
+  },
+  {
     path: "/login",
     component: () => import("@/views/login/index"),
     hidden: true

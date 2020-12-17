@@ -242,7 +242,8 @@ export default {
       this.file = this.$refs.file.files[0];
     },
     selecionarFilial(data) {
-      this.form.filial = null;
+      this.form.idfilial = null;
+
       this.filialFiltrado = this.filiaisNovo.filter((filial) => {
         return filial.idempresa == data;
       });

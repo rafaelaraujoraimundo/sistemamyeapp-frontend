@@ -28,36 +28,54 @@
         label="Sobrenome"
         width="150"
       ></el-table-column>
-      <el-table-column label="Operations" width="170">
+      <el-table-column label="Operações" width="138">
         <template slot-scope="scope">
+          <el-button-group>
+          <el-tooltip content="Envia email para Alteração de Senha" placement="bottom" effect="light">
+          <el-button
+            @click="altSenha(scope.row.email, list)"
+            type="info"
+            icon="el-icon-message"
+            circle
+
+          ></el-button>
+          </el-tooltip>
+           <el-tooltip content="Excluir usuario" placement="bottom" effect="light">
           <el-button
             @click="open(scope.row.id, list)"
             type="danger"
-            size="small"
-            >Excluir</el-button
-          >
+            icon="el-icon-delete"
+            circle
+
+          ></el-button>
+           </el-tooltip>
+           <el-tooltip content="Editar Usuario" placement="bottom" effect="light">
           <el-button
             type="primary"
-            size="small"
+            icon="el-icon-edit"
+            circle
             @click="editarRow(scope.row.id)"
-            >Editar</el-button
-          >
+
+          ></el-button>
+           </el-tooltip>
+          </el-button-group>
         </template>
       </el-table-column>
     </el-table>
-
-
   </div>
 </template>
 
 <script>
-import { usuarioList, usuarioExcluir } from "@/api/user";
+import { usuarioList, usuarioExcluir, resetemail } from "@/api/user";
 
 export default {
   data() {
     return {
       list: [],
       listLoading: true,
+      form: {
+        email: "",
+      },
     };
   },
   created() {
@@ -82,6 +100,18 @@ export default {
 
         this.listLoading = false;
       });
+    },
+    altSenha(email, list) {
+      this.form.email = email;
+      
+      resetemail(this.form).then((response) => {
+       
+      });
+       this.$message({
+          type: "success",
+          message:
+            "Email para alteração de enviado, favor verificar em sua caixa de entrada!",
+        });
     },
     open(id, list) {
       this.$confirm("Tem certeza que deseja excluir?", "Warning", {

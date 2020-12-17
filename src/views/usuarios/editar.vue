@@ -195,10 +195,15 @@ export default {
     });
     filiaisList().then((response) => {
       this.filiaisNovo = response.results;
+      
     });
+    
     detalheusuarioid(this.$route.query.id).then((response) => {
       this.form = response
       this.form.password = "nada"
+      this.filialFiltrado = this.filiaisNovo.filter((filial) => {
+        return filial.idempresa == this.form.idempresa;
+      });
 
     });
   },
@@ -207,7 +212,6 @@ export default {
       this.file = this.$refs.file.files[0];
     },
     selecionarFilial(data) {
-      console.log('passou aki')
       this.form.idfilial = null
       this.filialFiltrado = this.filiaisNovo.filter((filial) => {
         return filial.idempresa == data;
@@ -219,15 +223,15 @@ export default {
       this.form.criadopor = this.$store.getters.user.id;
       // Colocar o indicador pq precisac
       usuarioEditar(this.form).then((response) => {
-        this.$message("Filial alterada conforme solicitado!");
-        this.$router.push("/administracao/filiais/");
+        this.$message("Usuario alterado conforme solicitado!");
+        this.$router.push("/administracao/usuarios/");
       });
     },
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
     onCancel() {
-      this.$router.push("/administracao/empresas/");
+      this.$router.push("/administracao/usuarios/");
     },
   },
 };

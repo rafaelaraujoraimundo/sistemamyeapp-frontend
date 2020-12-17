@@ -68,3 +68,19 @@ export function alterarSenhaUsuario(data) {
     data
   })
 }
+
+export function alterarSenha(data) {
+  return request({
+    url: `/auth/password/reset/confirm/`,
+    method: 'post',
+    data
+  })
+}
+
+export function resetemail(data) {
+  return request({
+    url: `/auth/password/reset/`,
+    method: 'post',
+    data
+  })
+}

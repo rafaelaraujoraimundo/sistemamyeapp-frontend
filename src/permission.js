@@ -9,7 +9,7 @@ import { RefreshToken } from './api/user'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login'] // no redirect whitelist
+const whiteList = ['/login','/alterarSenha/:uid/:token'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
   // start progress bar
@@ -34,7 +34,6 @@ if (hasToken) {
         try {
           // get user info
           store.dispatch('user/getInfo')
-// TODO BUSCAR NOVAMENTE USUARIO E INFORMACOES
           next()
         } catch (error) {
           // remove token and go to login page to re-login
@@ -47,7 +46,7 @@ if (hasToken) {
     }
   }).catch(error=> { 
     console.error(error)
-    if (whiteList.indexOf(to.path) !== -1) {
+    if (whiteList.indexOf(to.path) !== -1 || to.name !== 'alterarSenha') {
       // in the free login whitelist, go directly
       next()
     } else {
@@ -59,7 +58,7 @@ if (hasToken) {
   } else {
     /* has no token*/
 
-    if (whiteList.indexOf(to.path) !== -1) {
+    if (whiteList.indexOf(to.path) !== -1 || to.name === 'alterarSenha') {
       // in the free login whitelist, go directly
       next()
     } else {
