@@ -28,7 +28,7 @@
         label="Sobrenome"
         width="150"
       ></el-table-column>
-      <el-table-column label="Operações" width="138">
+      <el-table-column fixed="right" label="Operações" width="138">
         <template slot-scope="scope">
           <el-button-group>
           <el-tooltip content="Envia email para Alteração de Senha" placement="bottom" effect="light">
