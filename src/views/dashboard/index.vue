@@ -95,7 +95,7 @@
             :data="DetalheIndicadorFiltrado"
             :row-style="tableRowsStyle2"
           >
-            <el-table-column class-name="teste" prop="descricao" label="Indicador" width="320">
+            <el-table-column class-name="teste" prop="descricao" label="Indicador" width="310">
             </el-table-column>
             <el-table-column prop="meta" label="Meta" width="90">
             </el-table-column>
@@ -124,7 +124,6 @@ export default {
   name: "Dashboard",
   data() {
     return {
-
       nota: '',
       corNota: '',
       eixoX: [],
@@ -213,14 +212,20 @@ export default {
       }
       this.form.periodo = this.filtroSelect;
       Dashboard(this.form).then((response) => {
+        console.log(this)
         this.notaFilialDashboard = response.results.notaFilial;
-        this.nota = this.notaFilialDashboard[0].nota;
-         this.corNota = this.notaDashboard.filter(
+
+        if (this.notaFilialDashboard.length != 0) {
+          this.nota = this.notaFilialDashboard[0].nota; 
+        }
+      
+        this.corNota = this.notaDashboard.filter(
           (nota) => {
             return this.nota == nota.nota
           })
-        this.corNota = this.corNota[0].cor
-        console.log(this.corNota)
+        if (this.corNota.length != 0 ) {
+             this.corNota = this.corNota[0].cor
+        }
         this.PainelGeralDashboard = response.results.painelGeral;
         this.DetalheIndicadorDashboard = response.results.detalheIndicador;
         this.filtros = response.results.filtros;

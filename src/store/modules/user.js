@@ -1,6 +1,7 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import checkPermission from '../../utils/permissions'
 
 const getDefaultState = () => {
   return {
@@ -34,6 +35,7 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
+    checkPermission()
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       
